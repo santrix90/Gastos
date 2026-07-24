@@ -1,6 +1,7 @@
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import type { Expense } from '../types'
+import { card, categoryColor } from '../theme'
 import { formatCurrency } from '../utils'
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 export function ExpenseList({ expenses, currency, onEdit, onDelete }: Props) {
   if (expenses.length === 0) {
     return (
-      <p className="rounded-2xl border border-dashed border-neutral-200 bg-white p-8 text-center text-sm text-neutral-400">
+      <p className="rounded-2xl border border-dashed border-neutral-800 bg-neutral-900/40 p-8 text-center text-sm text-neutral-500">
         No hay gastos en este periodo.
       </p>
     )
@@ -22,14 +23,21 @@ export function ExpenseList({ expenses, currency, onEdit, onDelete }: Props) {
   const sorted = [...expenses].sort((a, b) => b.date.localeCompare(a.date))
 
   return (
-    <ul className="divide-y divide-neutral-100 overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+    <ul className={`divide-y divide-neutral-800 overflow-hidden ${card}`}>
       {sorted.map((expense) => (
         <li key={expense.id} className="group flex items-center gap-3 px-4 py-3">
+          <span
+            className="h-8 w-1 rounded-full"
+            style={{
+              backgroundColor: categoryColor(expense.category),
+              boxShadow: `0 0 10px ${categoryColor(expense.category)}`,
+            }}
+          />
           <div className="min-w-0 flex-1">
             <p className="truncate text-sm font-medium">
               {expense.description || expense.category}
             </p>
-            <p className="text-xs text-neutral-400">
+            <p className="text-xs text-neutral-500">
               {expense.category} ·{' '}
               {format(new Date(`${expense.date}T12:00:00`), "d MMM yyyy", { locale: es })}
             </p>
@@ -40,13 +48,13 @@ export function ExpenseList({ expenses, currency, onEdit, onDelete }: Props) {
           <div className="flex gap-1 opacity-0 transition group-hover:opacity-100 focus-within:opacity-100">
             <button
               onClick={() => onEdit(expense)}
-              className="rounded-md px-2 py-1 text-xs text-neutral-500 hover:bg-neutral-100"
+              className="rounded-md px-2 py-1 text-xs text-neutral-400 hover:bg-neutral-800 hover:text-cyan-300"
             >
               Editar
             </button>
             <button
               onClick={() => onDelete(expense.id)}
-              className="rounded-md px-2 py-1 text-xs text-red-600 hover:bg-red-50"
+              className="rounded-md px-2 py-1 text-xs text-[#ff3860] hover:bg-neutral-800"
             >
               Eliminar
             </button>

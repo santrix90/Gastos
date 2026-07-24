@@ -4,6 +4,7 @@ import { ExpenseForm } from './components/ExpenseForm'
 import { ExpenseList } from './components/ExpenseList'
 import { Summary } from './components/Summary'
 import type { Expense, Period } from './types'
+import { input } from './theme'
 import { useLocalStorage } from './useLocalStorage'
 import { filterByPeriod, periodLabel } from './utils'
 
@@ -87,20 +88,22 @@ export default function App() {
   }
 
   const navButton =
-    'rounded-lg border border-neutral-200 bg-white px-3 py-1.5 text-sm text-neutral-600 transition hover:bg-neutral-100'
+    'rounded-lg border border-neutral-800 bg-neutral-900/60 px-3 py-1.5 text-sm text-neutral-300 transition hover:border-cyan-400 hover:text-cyan-300'
 
   return (
     <div className="mx-auto flex min-h-full max-w-5xl flex-col gap-6 px-4 py-8">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Gastos</h1>
-          <p className="text-sm text-neutral-400">
+          <h1 className="text-2xl font-semibold tracking-tight text-cyan-300 drop-shadow-[0_0_14px_rgba(0,240,255,0.5)]">
+            Gastos
+          </h1>
+          <p className="text-sm text-neutral-500">
             Tus datos se guardan solo en este navegador.
           </p>
         </div>
         <div className="flex items-center gap-2">
           <select
-            className="rounded-lg border border-neutral-200 bg-white px-2 py-1.5 text-sm"
+            className={`${input} w-auto py-1.5`}
             value={currency}
             onChange={(event) => setCurrency(event.target.value)}
           >
@@ -133,13 +136,15 @@ export default function App() {
       <ExpenseForm onSubmit={addOrUpdate} editing={editing} onCancelEdit={() => setEditing(null)} />
 
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-lg border border-neutral-200 bg-white p-1">
+        <div className="inline-flex rounded-lg border border-neutral-800 bg-neutral-900/60 p-1">
           {PERIODS.map(({ value, label }) => (
             <button
               key={value}
               onClick={() => setPeriod(value)}
               className={`rounded-md px-3 py-1.5 text-sm transition ${
-                period === value ? 'bg-neutral-900 text-white' : 'text-neutral-600'
+                period === value
+                  ? 'bg-cyan-400 text-neutral-950 shadow-[0_0_16px_rgba(0,240,255,0.45)]'
+                  : 'text-neutral-400 hover:text-neutral-200'
               }`}
             >
               {label}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { CATEGORIES } from '../types'
 import type { Expense } from '../types'
+import { card, input as inputClass } from '../theme'
 import { todayKey } from '../utils'
 
 type Props = {
@@ -50,15 +51,12 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
     setForm({ ...emptyForm, date: form.date })
   }
 
-  const inputClass =
-    'w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none transition focus:border-neutral-900'
-
   return (
     <form
       onSubmit={handleSubmit}
-      className="grid gap-3 rounded-2xl border border-neutral-200 bg-white p-4 sm:grid-cols-[1fr_1fr_1.5fr_1fr_auto] sm:items-end"
+      className={`grid gap-3 p-4 sm:grid-cols-[1fr_1fr_1.5fr_1fr_auto] sm:items-end ${card}`}
     >
-      <label className="grid gap-1 text-xs font-medium text-neutral-500">
+      <label className="grid gap-1 text-xs font-medium text-neutral-400">
         Importe
         <input
           className={inputClass}
@@ -68,7 +66,7 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
           onChange={(event) => setForm({ ...form, amount: event.target.value })}
         />
       </label>
-      <label className="grid gap-1 text-xs font-medium text-neutral-500">
+      <label className="grid gap-1 text-xs font-medium text-neutral-400">
         Categoría
         <select
           className={inputClass}
@@ -82,7 +80,7 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
           ))}
         </select>
       </label>
-      <label className="grid gap-1 text-xs font-medium text-neutral-500">
+      <label className="grid gap-1 text-xs font-medium text-neutral-400">
         Descripción
         <input
           className={inputClass}
@@ -91,7 +89,7 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
           onChange={(event) => setForm({ ...form, description: event.target.value })}
         />
       </label>
-      <label className="grid gap-1 text-xs font-medium text-neutral-500">
+      <label className="grid gap-1 text-xs font-medium text-neutral-400">
         Fecha
         <input
           className={inputClass}
@@ -103,7 +101,7 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
       <div className="flex gap-2">
         <button
           type="submit"
-          className="rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-700"
+          className="rounded-lg bg-cyan-400 px-4 py-2 text-sm font-semibold text-neutral-950 shadow-[0_0_18px_rgba(0,240,255,0.45)] transition hover:bg-cyan-300"
         >
           {editing ? 'Guardar' : 'Añadir'}
         </button>
@@ -111,13 +109,13 @@ export function ExpenseForm({ onSubmit, editing, onCancelEdit }: Props) {
           <button
             type="button"
             onClick={onCancelEdit}
-            className="rounded-lg border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100"
+            className="rounded-lg border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-300 transition hover:bg-neutral-800"
           >
             Cancelar
           </button>
         )}
       </div>
-      {error && <p className="text-xs text-red-600 sm:col-span-5">{error}</p>}
+      {error && <p className="text-xs text-[#ff3860] sm:col-span-5">{error}</p>}
     </form>
   )
 }
