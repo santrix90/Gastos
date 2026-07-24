@@ -2,6 +2,8 @@
 
 Registro de gastos diarios, semanales y mensuales. Sin backend ni base de datos: todo se guarda en el `localStorage` del navegador.
 
+App en vivo: https://santrix90.github.io/Gastos/
+
 ## Stack
 
 - React + TypeScript + Vite
